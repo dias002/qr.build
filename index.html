@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Стилизация QR-кода контакта</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 50px;
+        }
+        #qrcode {
+            margin: 20px auto;
+            background: white;
+            padding: 10px;
+            width: 256px;
+            height: 256px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>Стилизация QR-кода контакта</h1>
+    <p>Введите информацию для создания стилизованного QR-кода контакта:</p>
+    <input type="text" id="name" placeholder="Введите имя" /><br><br>
+    <input type="text" id="phone" placeholder="Введите номер телефона" /><br><br>
+    <button onclick="generateQRCode()">Создать QR-код</button>
+    <div id="qrcode"></div>
+
+    <script>
+        function generateQRCode() {
+            var name = document.getElementById("name").value;
+            var phone = document.getElementById("phone").value;
+            var qrcodeContainer = document.getElementById("qrcode");
+
+            // Очистка предыдущего QR-кода, если он есть
+            qrcodeContainer.innerHTML = "";
+
+            var vCardData = `BEGIN:VCARD\nVERSION:3.0\nFN:${name}\nTEL:${phone}\nEND:VCARD`;
+
+            // Создание нового QR-кода с цветом и фоном
+            new QRCode(qrcodeContainer, {
+                text: vCardData,
+                width: 256,
+                height: 256,
+                colorDark: "#e0cc9c",  // Цвет QR-кода
+                colorLight: "#ffffff",  // Фон QR-кода
+                correctLevel: QRCode.CorrectLevel.H
+            });
+        }
+    </script>
+</body>
+</html>
